@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#90CAF9</color>
+    <color name="primary_dark">#121212</color>
+    <color name="accent">#42A5F5</color>
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+
+    <color name="text_primary">#E1E1E1</color>
+    <color name="text_secondary">#B0B0B0</color>
+
+    <!-- Status Colors for Dark Mode -->
+    <color name="status_bekerja_bg">#1B5E20</color>
+    <color name="status_bekerja_text">#A5D6A7</color>
+    <color name="status_wirausaha_bg">#E65100</color>
+    <color name="status_wirausaha_text">#FFCC80</color>
+    <color name="status_studi_bg">#0D47A1</color>
+    <color name="status_studi_text">#90CAF9</color>
+    <color name="status_belum_bg">#424242</color>
+    <color name="status_belum_text">#BDBDBD</color>
+</resources>
