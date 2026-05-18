@@ -1,0 +1,10 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/ig_background</item>
+        <item name="android:textColorPrimary">@color/ig_text_primary</item>
+        <item name="android:statusBarColor">@color/ig_background</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:navigationBarColor">@color/ig_background</item>
+        <item name="android:windowLightNavigationBar">false</item>
+    </style>
+</resources>
