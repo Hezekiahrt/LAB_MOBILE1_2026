@@ -1,0 +1,19 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MyApplication" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/ig_background</item>
+        <item name="android:colorBackground">@color/ig_background</item>
+        <item name="colorSurface">@color/ig_background</item>
+        <item name="android:textColorPrimary">@color/ig_text_primary</item>
+        <item name="android:statusBarColor">@color/ig_background</item>
+
+        <!-- Membuat ikon status bar jadi hitam saat background putih (API 23+) -->
+        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- Membuat ikon navigasi bawah jadi hitam (API 27+) -->
+        <item name="android:navigationBarColor">@color/ig_background</item>
+        <item name="android:windowLightNavigationBar" tools:targetApi="o_mr1">true</item>
+    </style>
+
+    <style name="Theme.MyApplication" parent="Base.Theme.MyApplication" />
+</resources>

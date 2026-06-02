@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+
+    <!-- Semantic Colors (Light Mode) -->
+    <color name="ig_background">#FFFFFF</color>
+    <color name="ig_text_primary">#000000</color>
+    <color name="ig_text_secondary">#8E8E8E</color>
+    <color name="ig_blue">#0095F6</color>
+    <color name="ig_divider">#DBDBDB</color>
+    <color name="ig_input_bg">#FAFAFA</color>
+    <color name="ig_input_stroke">#DBDBDB</color>
+    <color name="ig_button_gray">#EFEFEF</color>
+</resources>

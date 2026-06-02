@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Library</string>
+    <string name="book_title_placeholder">Judul Buku</string>
+    <string name="book_genre_placeholder">Genre: Teknologi</string>
+    <string name="btn_like">Like</string>
+    <string name="book_blurb_placeholder">Blurb atau sinopsis buku akan tampil di sini&#8230;</string>
+    <string name="book_cover_description">Book Cover</string>
+</resources>
