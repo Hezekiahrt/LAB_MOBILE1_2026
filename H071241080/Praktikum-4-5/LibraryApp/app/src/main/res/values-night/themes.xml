@@ -1,0 +1,17 @@
+<resources>
+    <style name="Theme.LibraryApp" parent="Theme.Material3.Dark.NoActionBar">
+        <item name="colorPrimary">#90CAF9</item>
+        <item name="colorOnPrimary">#000000</item>
+        <item name="colorPrimaryContainer">#1565C0</item>
+        <item name="colorOnPrimaryContainer">#D3E4FF</item>
+        <item name="colorSecondary">#90CAF9</item>
+        <item name="colorOnSecondary">#000000</item>
+        <item name="colorSurface">#1E1E1E</item>
+        <item name="colorOnSurface">#EEEEEE</item>
+        <item name="colorSurfaceVariant">#2C2C2C</item>
+        <item name="colorError">#CF6679</item>
+        <item name="colorOnError">#000000</item>
+        <item name="android:statusBarColor">#1A1A2E</item>
+        <item name="android:windowBackground">#121212</item>
+    </style>
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1565C0</color>
+    <color name="primary_dark">#003c8f</color>
+    <color name="white">#FFFFFF</color>
+    <color name="grey_light">#F5F5F5</color>
+    <color name="grey_text">#757575</color>
+    <color name="like_active">#E53935</color>
+    <color name="like_inactive">#BDBDBD</color>
+    <color name="genre_chip_bg">#E3F2FD</color>
+    <color name="genre_chip_text">#1565C0</color>
+</resources>
