@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primary">#1565C0</color>
+    <color name="primary_dark">#0D47A1</color>
+    <color name="accent">#42A5F5</color>
+    <color name="background">#F5F7FA</color>
+    <color name="surface">#FFFFFF</color>
+
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+
+    <!-- Status Colors -->
+    <color name="status_bekerja_bg">#E8F5E9</color>
+    <color name="status_bekerja_text">#2E7D32</color>
+    <color name="status_wirausaha_bg">#FFF3E0</color>
+    <color name="status_wirausaha_text">#E65100</color>
+    <color name="status_studi_bg">#E3F2FD</color>
+    <color name="status_studi_text">#1565C0</color>
+    <color name="status_belum_bg">#F5F5F5</color>
+    <color name="status_belum_text">#616161</color>
+
+    <color name="text_primary">#1A1A1A</color>
+    <color name="text_secondary">#757575</color>
+</resources>
