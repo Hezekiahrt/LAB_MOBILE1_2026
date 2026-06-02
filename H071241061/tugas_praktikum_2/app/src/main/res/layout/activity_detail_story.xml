@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <!-- 1. GAMBAR STORY FULL SCREEN -->
+    <ImageView
+        android:id="@+id/imgDetailStory"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/backgrounds/scenic" />
+
+    <!-- OVERLAY GRADIENT ATAS (supaya teks header terbaca) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:background="@drawable/gradient_top_story"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- OVERLAY GRADIENT BAWAH (supaya bottom bar terbaca) -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/gradient_top_story"
+        android:rotation="180"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- 2. PROGRESS BAR SEGMEN -->
+    <LinearLayout
+        android:id="@+id/layoutProgress"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="14dp"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- Segmen 1 — sudah ditonton (putih penuh) -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginEnd="3dp"
+            android:background="#FFFFFF" />
+
+        <!-- Segmen 2 — sedang ditonton (putih penuh) -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            android:layout_marginEnd="3dp"
+            android:background="#FFFFFF" />
+
+        <!-- Segmen 3 — belum ditonton (putih transparan) -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginStart="3dp"
+            android:background="#55FFFFFF" />
+
+    </LinearLayout>
+
+    <!-- 3. USER HEADER -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/userHeader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="8dp"
+        app:layout_constraintTop_toBottomOf="@id/layoutProgress">
+
+        <!-- Foto Profil dengan border putih -->
+        <FrameLayout
+            android:id="@+id/frameStoryProfile"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <!-- Border putih -->
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/circle_border_story" />
+
+            <!-- Foto profil bulat -->
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/imgProfileStory"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:scaleType="centerCrop"
+                app:shapeAppearanceOverlay="@style/CircleImage"
+                tools:src="@tools:sample/avatars" />
+
+        </FrameLayout>
+
+        <!-- Username -->
+        <TextView
+            android:id="@+id/tvDetailStoryLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:text="username"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/frameStoryProfile"
+            app:layout_constraintStart_toEndOf="@id/frameStoryProfile"
+            app:layout_constraintTop_toTopOf="@id/frameStoryProfile" />
+
+        <!-- Waktu -->
+        <TextView
+            android:id="@+id/tvStoryTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:text="Baru saja"
+            android:textColor="#B3FFFFFF"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/tvDetailStoryLabel"
+            app:layout_constraintStart_toEndOf="@id/tvDetailStoryLabel"
+            app:layout_constraintTop_toTopOf="@id/tvDetailStoryLabel" />
+
+        <!-- Tombol More (titik 3) -->
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:padding="4dp"
+            android:src="@drawable/more"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/btnBackStory"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#FFFFFF" />
+
+        <!-- Tombol Close (X) -->
+        <ImageView
+            android:id="@+id/btnBackStory"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:padding="6dp"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:scaleType="fitCenter"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="#FFFFFF" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 4. BOTTOM BAR -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <!-- Input Reply — border rounded putih -->
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:background="@drawable/bg_reply_story"
+            android:gravity="center_vertical"
+            android:paddingStart="18dp"
+            android:paddingEnd="18dp"
+            android:text="Kirim pesan"
+            android:textColor="#CCFFFFFF"
+            android:textSize="14sp"
+            android:hint="Kirim pesan"
+            android:textColorHint="#99FFFFFF" />
+
+        <!-- Like / Hati -->
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/heart"
+            android:scaleType="fitCenter"
+            app:tint="#FFFFFF" />
+
+        <!-- Share / DM -->
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginStart="14dp"
+            android:src="@drawable/send"
+            android:scaleType="fitCenter"
+            android:tint="#FFFFFF"/>
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
