@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">TuPrak5</string>
+    <string name="menu_home">Home</string>
+    <string name="menu_add">Add</string>
+    <string name="menu_favorites">Favorites</string>
+    <string name="menu_profile">Profile</string>
+
+    <!-- Login & Register -->
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+
+    <!-- Profile -->
+    <string name="edit_profile">Ubah Profil</string>
+    <string name="logout">Logout</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="settings">Pengaturan</string>
+</resources>
