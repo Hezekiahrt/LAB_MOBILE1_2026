@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Di dark mode, primary color tetap terracotta tapi sedikit lebih terang -->
+    <color name="primaryColor">#F28C72</color>
+    <color name="secondaryColor">#F4A261</color>
+
+    <!-- Warna teks dan surface untuk dark mode -->
+    <color name="textColorPrimary">#E0E0E0</color>
+    <color name="backgroundColor">#121212</color>
+    <color name="surfaceColor">#1C1C1E</color>
+</resources>

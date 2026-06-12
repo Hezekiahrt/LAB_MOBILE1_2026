@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="primaryColor">#E07A5F</color> <color name="secondaryColor">#F4A261</color> <color name="backgroundColor">#FDFBF7</color> <color name="surfaceColor">#FFFFFF</color> <color name="textColorPrimary">#2B2B2B</color> <color name="primaryColorDark">#FF6B00</color> <color name="backgroundColorDark">#121212</color> <color name="surfaceColorDark">#1C1C1E</color> <color name="textColorPrimaryDark">#E0E0E0</color> <color name="bg_splash_light">#FDFBF7</color>
+    <color name="bg_splash_dark">#121212</color>
+</resources>
