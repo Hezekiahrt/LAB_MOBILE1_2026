@@ -48,6 +48,69 @@ public class HomeFragment extends Fragment {
         // Setup RecyclerView
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         postAdapter = new PostAdapter();
+        postAdapter.setListener(new PostAdapter.OnPostInteractionListener() {
+            @Override
+            public void onLikeClick(PostEntity post) {
+                post.isLiked = !post.isLiked;
+                homeViewModel.updatePost(post);
+            }
+
+            @Override
+            public void onBookmarkClick(PostEntity post) {
+                post.isBookmarked = !post.isBookmarked;
+                homeViewModel.updatePost(post);
+            }
+
+            @Override
+            public void onAuthorClick(String authorName) {
+                String currentUsername = new com.example.dropby.utils.TokenManager(requireContext()).getUsername();
+                if (currentUsername == null) currentUsername = "";
+                
+                if ("Anda".equals(authorName) || currentUsername.equals(authorName)) {
+                    com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottom_navigation);
+                    if (bottomNav != null) {
+                        bottomNav.setSelectedItemId(R.id.nav_profile);
+                    }
+                } else {
+                    android.content.Intent intent = new android.content.Intent(getContext(), DummyProfileActivity.class);
+                    intent.putExtra("authorName", authorName);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onPostLongClick(PostEntity post) {
+                String currentUsername = new com.example.dropby.utils.TokenManager(requireContext()).getUsername();
+                if (currentUsername == null) currentUsername = "";
+                if ("Anda".equals(post.authorName) || currentUsername.equals(post.authorName)) {
+                    com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog = new com.google.android.material.bottomsheet.BottomSheetDialog(requireContext());
+                    View bottomSheetView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_bottom_sheet_delete, null);
+                    bottomSheetDialog.setContentView(bottomSheetView);
+
+                    bottomSheetDialog.setOnShowListener(dialog -> {
+                        com.google.android.material.bottomsheet.BottomSheetDialog d = (com.google.android.material.bottomsheet.BottomSheetDialog) dialog;
+                        android.widget.FrameLayout bottomSheet = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+                        if (bottomSheet != null) {
+                            bottomSheet.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+                        }
+                    });
+
+                    bottomSheetView.findViewById(R.id.btnConfirmDelete).setOnClickListener(v -> {
+                        java.util.concurrent.Executors.newSingleThreadExecutor().execute(() -> {
+                            com.example.dropby.data.local.AppDatabase.getInstance(requireContext()).postDao().deletePost(post);
+                        });
+                        Toast.makeText(requireContext(), "Postingan dihapus", Toast.LENGTH_SHORT).show();
+                        bottomSheetDialog.dismiss();
+                    });
+
+                    bottomSheetView.findViewById(R.id.btnCancelDelete).setOnClickListener(v -> {
+                        bottomSheetDialog.dismiss();
+                    });
+
+                    bottomSheetDialog.show();
+                }
+            }
+        });
         rvPosts.setAdapter(postAdapter);
 
         // 1. Observasi Data dari Room/API (Local Data Persistent)

@@ -41,10 +41,11 @@ public class AddPostFragment extends Fragment {
                 if (uri != null) {
                     selectedMediaUri = uri.toString();
                     ImageView ivPreview = getView().findViewById(R.id.ivMediaPreview);
-                    Button btnPick = getView().findViewById(R.id.btnPickMedia);
+                    View llContainer = getView().findViewById(R.id.llPickMediaContainer);
 
-                    // Hilangkan tombol, tampilkan gambar
-                    btnPick.setVisibility(View.GONE);
+                    // Hilangkan container sepenuhnya, tampilkan gambar
+                    if (llContainer != null) llContainer.setVisibility(View.GONE);
+                    ivPreview.setVisibility(View.VISIBLE);
                     Glide.with(this).load(uri).centerCrop().into(ivPreview);
                 }
             });
@@ -82,6 +83,8 @@ public class AddPostFragment extends Fragment {
         mapView.getController().setCenter(startPoint);
 
         Marker locationMarker = new Marker(mapView);
+        locationMarker.setPosition(startPoint);
+        locationMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
         mapView.getOverlays().add(locationMarker);
 
         MapEventsReceiver mReceive = new MapEventsReceiver() {
@@ -106,9 +109,9 @@ public class AddPostFragment extends Fragment {
 
         // 2. Aksi Tombol Pilih Media
         View.OnClickListener mediaClickListener = v -> {
-            // Memanggil pemilih media bawaan sistem (Bisa foto atau video)
+            // Memanggil pemilih media bawaan sistem (Hanya foto)
             pickMedia.launch(new PickVisualMediaRequest.Builder()
-                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageAndVideo.INSTANCE)
+                    .setMediaType(ActivityResultContracts.PickVisualMedia.ImageOnly.INSTANCE)
                     .build());
         };
         btnPickMedia.setOnClickListener(mediaClickListener);
@@ -126,7 +129,13 @@ public class AddPostFragment extends Fragment {
             String caption = etCaption.getText() != null ? etCaption.getText().toString() : "";
             int rating = (int) sliderRating.getValue();
 
-            viewModel.submitPost(placeName, placeType, rating, caption, selectedMediaUri);
+            GeoPoint p = locationMarker.getPosition();
+            String locationString = "";
+            if (p != null) {
+                locationString = p.getLatitude() + "," + p.getLongitude();
+            }
+
+            viewModel.submitPost(placeName, placeType, rating, caption, selectedMediaUri, locationString);
         });
 
         // 5. Observasi ViewModel

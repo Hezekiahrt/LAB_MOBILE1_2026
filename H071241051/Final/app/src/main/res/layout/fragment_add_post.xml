@@ -53,6 +53,7 @@
                     android:visibility="gone" />
 
                 <LinearLayout
+                    android:id="@+id/llPickMediaContainer"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -70,7 +71,7 @@
                         android:id="@+id/btnPickMedia"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Pilih Foto / Video"
+                        android:text="Pilih Foto"
                         android:textColor="@color/primaryColor"
                         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         app:strokeColor="@color/primaryColor"

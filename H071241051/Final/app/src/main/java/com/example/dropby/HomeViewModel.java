@@ -49,7 +49,7 @@ public class HomeViewModel extends AndroidViewModel {
 
                 if (response.isSuccessful() && response.body() != null) {
                     // Simpan ke SQLite (Room) untuk persistent data
-                    postDao.clearAllPosts();
+                    // postDao.clearAllPosts(); // Komentar ini agar post lokal pengguna tidak hilang
                     postDao.insertPosts(response.body());
 
                     mainHandler.post(() -> isRefreshing.setValue(false));
@@ -66,6 +66,12 @@ public class HomeViewModel extends AndroidViewModel {
                     errorMessage.setValue("Tidak ada koneksi jaringan. Menampilkan data offline.");
                 });
             }
+        });
+    }
+
+    public void updatePost(PostEntity post) {
+        executor.execute(() -> {
+            postDao.updatePost(post);
         });
     }
 }

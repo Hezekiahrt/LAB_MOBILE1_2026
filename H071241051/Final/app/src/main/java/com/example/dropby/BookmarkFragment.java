@@ -29,6 +29,45 @@ public class BookmarkFragment extends Fragment {
 
         rvBookmark.setLayoutManager(new LinearLayoutManager(getContext()));
         PostAdapter adapter = new PostAdapter();
+        adapter.setListener(new PostAdapter.OnPostInteractionListener() {
+            @Override
+            public void onLikeClick(com.example.dropby.data.local.PostEntity post) {
+                post.isLiked = !post.isLiked;
+                java.util.concurrent.Executors.newSingleThreadExecutor().execute(() -> 
+                    AppDatabase.getInstance(requireContext()).postDao().updatePost(post)
+                );
+            }
+
+            @Override
+            public void onBookmarkClick(com.example.dropby.data.local.PostEntity post) {
+                post.isBookmarked = !post.isBookmarked;
+                java.util.concurrent.Executors.newSingleThreadExecutor().execute(() -> 
+                    AppDatabase.getInstance(requireContext()).postDao().updatePost(post)
+                );
+            }
+
+            @Override
+            public void onAuthorClick(String authorName) {
+                String currentUsername = new com.example.dropby.utils.TokenManager(requireContext()).getUsername();
+                if (currentUsername == null) currentUsername = "";
+                
+                if ("Anda".equals(authorName) || currentUsername.equals(authorName)) {
+                    com.google.android.material.bottomnavigation.BottomNavigationView bottomNav = requireActivity().findViewById(R.id.bottom_navigation);
+                    if (bottomNav != null) {
+                        bottomNav.setSelectedItemId(R.id.nav_profile);
+                    }
+                } else {
+                    android.content.Intent intent = new android.content.Intent(getContext(), DummyProfileActivity.class);
+                    intent.putExtra("authorName", authorName);
+                    startActivity(intent);
+                }
+            }
+
+            @Override
+            public void onPostLongClick(com.example.dropby.data.local.PostEntity post) {
+                // Ignore for bookmarks feed
+            }
+        });
         rvBookmark.setAdapter(adapter);
 
         AppDatabase.getInstance(requireContext()).postDao().getBookmarkedPosts().observe(getViewLifecycleOwner(), posts -> {

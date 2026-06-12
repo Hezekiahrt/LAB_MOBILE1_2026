@@ -33,7 +33,7 @@ public class AddPostViewModel extends AndroidViewModel {
     public LiveData<Boolean> getIsLoading() { return isLoading; }
     public LiveData<String> getErrorMessage() { return errorMessage; }
 
-    public void submitPost(String placeName, String placeType, int rating, String caption, String mediaUri) {
+    public void submitPost(String placeName, String placeType, int rating, String caption, String mediaUri, String location) {
         if (placeName.isEmpty() || placeType.isEmpty()) {
             errorMessage.setValue("Nama tempat dan jenis tempat wajib diisi!");
             return;
@@ -52,12 +52,13 @@ public class AddPostViewModel extends AndroidViewModel {
 
                 // 2. Simpan ke SQLite secara lokal (agar langsung muncul di Beranda saat offline/selesai)
                 PostEntity newPost = new PostEntity();
-                newPost.authorName = tokenManager.isLoggedIn() ? "Anda" : "User";
+                newPost.authorName = tokenManager.getUsername() != null && !tokenManager.getUsername().isEmpty() ? tokenManager.getUsername() : (tokenManager.isLoggedIn() ? "Anda" : "User");
                 newPost.placeName = placeName;
                 newPost.placeType = placeType;
                 newPost.rating = rating;
                 newPost.caption = caption;
                 newPost.imageUrl = mediaUri; // Menyimpan URI gambar lokal untuk ditampilkan
+                newPost.location = location;
                 newPost.isBookmarked = false;
                 newPost.isLiked = false;
 

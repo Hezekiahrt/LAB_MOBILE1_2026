@@ -14,6 +14,7 @@ public class PostEntity {
     public int rating;
     public String caption;
     public String imageUrl;
+    public String location;
     public boolean isBookmarked;
     public boolean isLiked;
 

@@ -6,23 +6,12 @@
     android:orientation="vertical"
     android:background="?android:attr/windowBackground">
 
-    <!-- Top Bar -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Cari Tempat"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="?android:attr/textColorPrimary"
-        android:paddingHorizontal="20dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="12dp" />
-
     <!-- Search Bar -->
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="16dp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:hint="Cari restoran, kafe, tempat wisata, teman..."
@@ -36,6 +25,7 @@
         app:startIconTint="@color/primaryColor">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="text"
@@ -43,8 +33,17 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvSearch"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="16dp"
+        android:visibility="gone" />
+
     <!-- Empty State -->
     <LinearLayout
+        android:id="@+id/layoutEmptyState"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"

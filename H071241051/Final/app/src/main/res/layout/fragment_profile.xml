@@ -137,6 +137,7 @@
                         android:orientation="vertical"
                         android:gravity="center">
                         <TextView
+                            android:id="@+id/tvPostCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -163,6 +164,7 @@
                         android:orientation="vertical"
                         android:gravity="center">
                         <TextView
+                            android:id="@+id/tvSavedCount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="0"
@@ -177,10 +179,88 @@
                             android:textColor="?android:attr/textColorSecondary" />
                     </LinearLayout>
 
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <LinearLayout
+                        android:id="@+id/btnTeman"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/tvFriendCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primaryColor" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Teman"
+                            android:textSize="12sp"
+                            android:textColor="?android:attr/textColorSecondary" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="1dp"
+                        android:layout_height="40dp"
+                        android:background="?android:attr/listDivider" />
+
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical"
+                        android:gravity="center">
+                        <TextView
+                            android:id="@+id/tvDropCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="0"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primaryColor" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Drop"
+                            android:textSize="12sp"
+                            android:textColor="?android:attr/textColorSecondary" />
+                    </LinearLayout>
+
                 </LinearLayout>
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
+
+        <!-- Postingan Anda -->
+        <TextView
+            android:id="@+id/tvMyPostsLabel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Postingan Anda:"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:paddingHorizontal="16dp"
+            android:paddingBottom="8dp"
+            android:visibility="gone" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvMyPosts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clipToPadding="false"
+            android:paddingBottom="16dp"
+            android:nestedScrollingEnabled="false" />
 
         <!-- ── Pengaturan Section Label ─────────────────────── -->
         <TextView

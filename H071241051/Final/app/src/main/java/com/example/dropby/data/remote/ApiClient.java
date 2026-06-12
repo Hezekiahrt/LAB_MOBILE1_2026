@@ -9,7 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
     // Ganti dengan URL API Anda (jika pakai localhost emulator, gunakan 10.0.2.2)
-    private static final String BASE_URL = "https://api.dropby.com/";
+    private static final String BASE_URL = "http://10.0.2.2:8000/";
     private static volatile Retrofit retrofit = null;
 
     // Panggil ini setelah login/logout agar token di-refresh

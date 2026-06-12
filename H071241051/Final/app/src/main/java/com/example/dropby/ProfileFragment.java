@@ -76,32 +76,146 @@ public class ProfileFragment extends Fragment {
             ivProfilePicture.setImageResource(R.mipmap.ic_launcher_round);
         }
 
+        TextView tvPostCount = view.findViewById(R.id.tvPostCount);
+        TextView tvSavedCount = view.findViewById(R.id.tvSavedCount);
+        TextView tvDropCount = view.findViewById(R.id.tvDropCount);
+        TextView tvFriendCount = view.findViewById(R.id.tvFriendCount);
+        LinearLayout btnTeman = view.findViewById(R.id.btnTeman);
+
+        com.example.dropby.data.local.AppDatabase db = com.example.dropby.data.local.AppDatabase.getInstance(requireContext());
+
+        db.postDao().getAllAuthors().observe(getViewLifecycleOwner(), authors -> {
+            if (authors != null) {
+                tvFriendCount.setText(String.valueOf(authors.size()));
+            }
+        });
+
+        db.postDao().getBookmarkedCount().observe(getViewLifecycleOwner(), count -> {
+            if (count != null) {
+                tvSavedCount.setText(String.valueOf(count));
+            }
+        });
+
+        String currentUsername = tokenManager.getUsername();
+        if (currentUsername == null) currentUsername = "";
+
+        androidx.recyclerview.widget.RecyclerView rvMyPosts = view.findViewById(R.id.rvMyPosts);
+        TextView tvMyPostsLabel = view.findViewById(R.id.tvMyPostsLabel);
+
+        rvMyPosts.setLayoutManager(new androidx.recyclerview.widget.LinearLayoutManager(getContext()));
+        PostAdapter postAdapter = new PostAdapter();
+        postAdapter.setListener(new PostAdapter.OnPostInteractionListener() {
+            @Override
+            public void onLikeClick(com.example.dropby.data.local.PostEntity post) {
+                post.isLiked = !post.isLiked;
+                java.util.concurrent.Executors.newSingleThreadExecutor().execute(() -> 
+                    db.postDao().updatePost(post)
+                );
+            }
+
+            @Override
+            public void onBookmarkClick(com.example.dropby.data.local.PostEntity post) {
+                post.isBookmarked = !post.isBookmarked;
+                java.util.concurrent.Executors.newSingleThreadExecutor().execute(() -> 
+                    db.postDao().updatePost(post)
+                );
+            }
+
+            @Override
+            public void onAuthorClick(String name) {
+                // Already in profile
+            }
+
+            @Override
+            public void onPostLongClick(com.example.dropby.data.local.PostEntity post) {
+                com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog = new com.google.android.material.bottomsheet.BottomSheetDialog(requireContext());
+                View bottomSheetView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_bottom_sheet_delete, null);
+                bottomSheetDialog.setContentView(bottomSheetView);
+
+                bottomSheetDialog.setOnShowListener(dialog -> {
+                    com.google.android.material.bottomsheet.BottomSheetDialog d = (com.google.android.material.bottomsheet.BottomSheetDialog) dialog;
+                    android.widget.FrameLayout bottomSheet = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+                    if (bottomSheet != null) {
+                        bottomSheet.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+                    }
+                });
+
+                bottomSheetView.findViewById(R.id.btnConfirmDelete).setOnClickListener(v -> {
+                    java.util.concurrent.Executors.newSingleThreadExecutor().execute(() -> {
+                        db.postDao().deletePost(post);
+                    });
+                    Toast.makeText(requireContext(), "Postingan dihapus", Toast.LENGTH_SHORT).show();
+                    bottomSheetDialog.dismiss();
+                });
+
+                bottomSheetView.findViewById(R.id.btnCancelDelete).setOnClickListener(v -> {
+                    bottomSheetDialog.dismiss();
+                });
+
+                bottomSheetDialog.show();
+            }
+        });
+        rvMyPosts.setAdapter(postAdapter);
+
+        db.postDao().getPostsByAuthor(currentUsername).observe(getViewLifecycleOwner(), posts -> {
+            if (posts != null) {
+                tvPostCount.setText(String.valueOf(posts.size()));
+                int totalDrops = 0;
+                for (com.example.dropby.data.local.PostEntity post : posts) {
+                    totalDrops += (post.isLiked ? 1 : 0);
+                }
+                tvDropCount.setText(String.valueOf(totalDrops));
+                
+                postAdapter.setPosts(posts);
+                if (!posts.isEmpty()) {
+                    tvMyPostsLabel.setVisibility(View.VISIBLE);
+                } else {
+                    tvMyPostsLabel.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        btnTeman.setOnClickListener(v -> {
+            startActivity(new Intent(getActivity(), FriendListActivity.class));
+        });
+
         // ── Edit Profile Actions ────────────────────────────
         MaterialCardView cardProfilePicture = view.findViewById(R.id.cardProfilePicture);
         cardProfilePicture.setOnClickListener(v -> mGetContent.launch("image/*"));
 
         LinearLayout btnEditUsername = view.findViewById(R.id.btnEditUsername);
         btnEditUsername.setOnClickListener(v -> {
-            EditText input = new EditText(requireContext());
-            input.setText(tvUsername.getText().toString());
-            
-            // Tambahkan padding agar lebih rapi
-            int padding = (int) (16 * getResources().getDisplayMetrics().density);
-            input.setPadding(padding, padding, padding, padding);
+            com.google.android.material.bottomsheet.BottomSheetDialog bottomSheetDialog = new com.google.android.material.bottomsheet.BottomSheetDialog(requireContext());
+            View dialogView = LayoutInflater.from(requireContext()).inflate(R.layout.dialog_edit_username, null);
+            bottomSheetDialog.setContentView(dialogView);
 
-            new AlertDialog.Builder(requireContext())
-                    .setTitle("Ubah Username")
-                    .setView(input)
-                    .setPositiveButton("Simpan", (dialog, which) -> {
-                        String newName = input.getText().toString().trim();
-                        if (!newName.isEmpty()) {
-                            tvUsername.setText(newName);
-                            tokenManager.updateUsername(newName);
-                            syncProfileToServer(newName, tokenManager.getProfilePicture());
-                        }
-                    })
-                    .setNegativeButton("Batal", null)
-                    .show();
+            bottomSheetDialog.setOnShowListener(dialog -> {
+                com.google.android.material.bottomsheet.BottomSheetDialog d = (com.google.android.material.bottomsheet.BottomSheetDialog) dialog;
+                android.widget.FrameLayout bottomSheet = d.findViewById(com.google.android.material.R.id.design_bottom_sheet);
+                if (bottomSheet != null) {
+                    bottomSheet.setBackgroundColor(android.graphics.Color.TRANSPARENT);
+                }
+            });
+
+            com.google.android.material.textfield.TextInputEditText input = dialogView.findViewById(R.id.etUsernameInput);
+            input.setText(tvUsername.getText().toString());
+            input.setSelection(input.getText().length());
+
+            dialogView.findViewById(R.id.btnSaveUsername).setOnClickListener(btn -> {
+                String newName = input.getText().toString().trim();
+                if (!newName.isEmpty()) {
+                    tvUsername.setText(newName);
+                    tokenManager.updateUsername(newName);
+                    syncProfileToServer(newName, tokenManager.getProfilePicture());
+                }
+                bottomSheetDialog.dismiss();
+            });
+
+            dialogView.findViewById(R.id.btnCancelUsername).setOnClickListener(btn -> {
+                bottomSheetDialog.dismiss();
+            });
+
+            bottomSheetDialog.show();
         });
 
         // ── Checkmark indicators ────────────────────────────
