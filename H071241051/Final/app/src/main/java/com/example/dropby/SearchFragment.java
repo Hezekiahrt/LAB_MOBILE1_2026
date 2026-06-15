@@ -109,3 +109,4 @@ public class SearchFragment extends Fragment {
         });
     }
 }
+//new merge
